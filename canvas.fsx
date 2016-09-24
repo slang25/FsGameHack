@@ -20,7 +20,7 @@ canvas.height <- 648.
 
 let drawIntroText state =
   let ctx = canvas.getContext_2d()
-  ctx.font <- "PixelFJVerdana12pt"
+  ctx.font <- "48pt PixelFJVerdana12pt"
   ctx.fillStyle <- U3.Case1 "black"
   ctx.textBaseline <- "top"
   ctx.fillText ("Yo, sup?", 0., 270.)
@@ -42,7 +42,6 @@ let drawBackground state =
   let backdropImg = (document.getElementById "BackdropImage") :?> HTMLImageElement
   ctx.drawImage (U3.Case1 backdropImg, 0., 0., 768., 648.)
 
-
 let drawCanvas state =
     canvas.width <- canvas.width
     match state.Scene with
@@ -58,6 +57,5 @@ and update state = async{
     do! Async.Sleep(int (1000. / 60.))
     return! update state
     ()}
-// let drawSomething () = ctx.drawImage  
-
-game();
+    
+game() |> Async.StartImmediate
