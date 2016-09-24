@@ -26,6 +26,17 @@ let drawIntroText () =
   ctx.fillText ("Yo, sup?", 0., 270.)
   ()
 
+type CatState =
+    | Alive
+    | Dead
+    | None
+
+type GameScene = 
+     | IntoBlurb
+     | Main
+
+type GameState = { Scene: GameScene; Cat: CatState}
+
 let drawBackground () =
   let ctx = canvas.getContext_2d ()
   let backdropImg = (document.getElementById "BackdropImage") :?> HTMLImageElement
@@ -33,4 +44,16 @@ let drawBackground () =
 
 drawBackground ()
 //drawIntroText()
+
+let rec game () = async {
+    return! update { Scene = GameScene.IntoBlurb; Cat = CatState.None}
+    ()}
+
+and update state = async{
+    match state.Scene with
+    | GameScene.IntoBlurb -> drawIntroText()
+    | GameScene.Main -> drawBackground()
+    do! Async.Sleep(int (1000. / 60.))
+    return! update state
+    ()}
 // let drawSomething () = ctx.drawImage  
