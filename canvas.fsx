@@ -10,8 +10,8 @@ open Fable.Import.Browser
 open Fable.Import.JS
 
 let canvas =  document.getElementsByTagName_canvas().[0]
-canvas.width <- 1000.
-canvas.height <- 800.
+canvas.width <- 128.
+canvas.height <- 108.
 // let ctx = canvas.getContext_2d()
 // ctx.fillStyle <- U3.Case1 "rgb(200,0,0)"
 // ctx.fillRect (10., 10., 55., 50.);
@@ -28,7 +28,9 @@ let drawIntroText () =
 
 let drawBackground () =
   let ctx = canvas.getContext_2d ()
-  ctx.drawImage 
+  let backdropImg = (document.getElementById "BackdropImage") :?> HTMLImageElement
+  ctx.drawImage (U3.Case1 backdropImg, 10., 10., 512., 432.)
 
+drawBackground ()
 //drawIntroText()
 // let drawSomething () = ctx.drawImage  

@@ -19,24 +19,25 @@
 
   exports.default = function ($M0) {
     var canvas = $M0.canvas = document.getElementsByTagName('canvas')[0];
-    canvas.width = 1000;
-    canvas.height = 800;
-    var ctx = $M0.ctx = canvas.getContext('2d');
-    ctx.fillStyle = "rgb(200,0,0)";
-    ctx.fillRect(10, 10, 55, 50);
-    ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
-    ctx.fillRect(30, 30, 55, 50);
+    canvas.width = 128;
+    canvas.height = 108;
 
     var drawIntroText = $M0.drawIntroText = function () {
-      var ctx_1 = canvas.getContext('2d');
-      ctx_1.font = "48px PixelFJVerdana12pt";
-      ctx_1.fillStyle = "black";
-      ctx_1.textBaseline = "top";
-      ctx_1.fillText("Yo, sup?", 0, 270);
+      var ctx = canvas.getContext('2d');
+      ctx.font = "48px PixelFJVerdana12pt";
+      ctx.fillStyle = "black";
+      ctx.textBaseline = "top";
+      ctx.fillText("Yo, sup?", 0, 270);
       null;
     };
 
-    drawIntroText();
+    var drawBackground = $M0.drawBackground = function () {
+      var ctx = canvas.getContext('2d');
+      var backdropImg = document.getElementById("BackdropImage");
+      ctx.drawImage(backdropImg, 10, 10, 512, 432);
+    };
+
+    drawBackground();
     return $M0;
   }({});
 });
