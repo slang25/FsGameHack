@@ -19,8 +19,8 @@
 
   exports.default = function ($M0) {
     var canvas = $M0.canvas = document.getElementsByTagName('canvas')[0];
-    canvas.width = 128;
-    canvas.height = 108;
+    canvas.width = 768;
+    canvas.height = 648;
 
     var drawIntroText = $M0.drawIntroText = function () {
       var ctx = canvas.getContext('2d');
@@ -34,7 +34,7 @@
     var drawBackground = $M0.drawBackground = function () {
       var ctx = canvas.getContext('2d');
       var backdropImg = document.getElementById("BackdropImage");
-      ctx.drawImage(backdropImg, 10, 10, 512, 432);
+      ctx.drawImage(backdropImg, 0, 0, 768, 648);
     };
 
     drawBackground();
