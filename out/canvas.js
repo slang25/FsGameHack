@@ -47,7 +47,7 @@
         canvas.width = 768;
         canvas.height = 648;
 
-        var drawIntroText = $M0.drawIntroText = function () {
+        var drawIntroText = $M0.drawIntroText = function (state) {
             var ctx = canvas.getContext('2d');
             ctx.font = "48pt PixelFJVerdana12pt";
             ctx.fillStyle = "black";
@@ -83,16 +83,22 @@
             this.Cat = $arg1;
         };
 
-        var drawBackground = $M0.drawBackground = function () {
+        var drawBackground = $M0.drawBackground = function (state) {
             var ctx = canvas.getContext('2d');
             var backdropImg = document.getElementById("BackdropImage");
             ctx.drawImage(backdropImg, 0, 0, 768, 648);
         };
 
+        var drawCanvas = $M0.drawCanvas = function (state) {
+            canvas.width = canvas.width;
+            var matchValue = state.Scene;
+            matchValue.tag === "Main" ? drawBackground(state) : drawIntroText(state);
+        };
+
         var game = $M0.game = function () {
             return function (builder_) {
                 return builder_.delay(function (unitVar) {
-                    return builder_.combine(builder_.returnFrom(update(new GameState(new GameScene("IntoBlurb"), new CatState("None")))), builder_.delay(function (unitVar_1) {
+                    return builder_.combine(builder_.returnFrom(update(new GameState(new GameScene("IntroBlurb"), new CatState("None")))), builder_.delay(function (unitVar_1) {
                         return null, builder_.zero();
                     }));
                 });
@@ -102,14 +108,11 @@
         var update = $M0.update = function (state) {
             return function (builder_) {
                 return builder_.delay(function (unitVar) {
-                    var matchValue;
-                    return builder_.combine((matchValue = state.Scene, matchValue.tag === "Main" ? (drawBackground(), builder_.zero()) : (drawIntroText(), builder_.zero())), builder_.delay(function (unitVar_1) {
-                        return builder_.bind($M1.Async.sleep(Math.floor(1000 / 60)), function (_arg1) {
-                            return builder_.combine(builder_.returnFrom(update(state)), builder_.delay(function (unitVar_2) {
-                                return null, builder_.zero();
-                            }));
-                        });
-                    }));
+                    return drawCanvas(state), builder_.bind($M1.Async.sleep(Math.floor(1000 / 60)), function (_arg1) {
+                        return builder_.combine(builder_.returnFrom(update(state)), builder_.delay(function (unitVar_1) {
+                            return null, builder_.zero();
+                        }));
+                    });
                 });
             }($M1.Async);
         };
