@@ -57,5 +57,5 @@ and update state = async{
     do! Async.Sleep(int (1000. / 60.))
     return! update state
     ()}
-    
-game() |> Async.StartImmediate
+
+game () |> Async.StartImmediate
